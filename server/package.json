@@ -1,0 +1,28 @@
+{
+  "name": "passwordless-auth-serverless",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "aws-sdk": "^2.465.0",
+    "bluebird": "^3.5.5",
+    "nexmo": "^2.4.3-beta-1",
+    "query-string": "^6.5.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.13.0",
+    "prettier": "^1.17.1"
+  },
+  "scripts": {
+    "test-create-auth-code": "sls invoke local --function create-auth-code --data '{\"body\":{\"recipient\":\"447749725766\"}}'",
+    "test-check-auth-code-fake": "sls invoke local --function check-auth-code --data '{\"body\":{\"authCode\":\"asd\"}}'",
+    "test-check-auth-code": "sls invoke local --function check-auth-code --data '{\"body\":{\"authCode\":\"mJnX5VjfTF\"}}'",
+    "test-inbound-auth": "sls invoke local --function inbound-auth-code --data '{\"body\":\"msisdn=447749725766&text=9769\"}'"
+  },
+  "author": "",
+  "license": "ISC"
+}

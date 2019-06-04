@@ -11,3 +11,22 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.login-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.login-code-text {
+  margin: 20px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.letter-spacing {
+  letter-spacing: 0.3em;
+  margin-right: -0.3em;
+}
