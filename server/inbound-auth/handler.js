@@ -3,6 +3,7 @@ const AWS = require('aws-sdk');
 const Nexmo = require('nexmo');
 const queryString = require('query-string');
 const config = require('../config.json');
+const { getNumberFromCountryCode } = require('../util');
 
 AWS.config.setPromisesDependency(require('bluebird'));
 
@@ -75,7 +76,8 @@ async function authenticateCode({ recipient, randomDigits }) {
       };
 
       const updatedItem = await dynamoDb.update(paramsUpdate).promise();
-      await sendSmsCallback(recipient, config.NEXMO_SMS_FROM);
+      console.log('updatedItem', updatedItem);
+      await sendSmsCallback(recipient, getNumberFromCountryCode(item.Items[0].country));
       console.log('updatedItem', updatedItem);
       return updatedItem;
     }

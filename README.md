@@ -41,5 +41,5 @@ If the credentials are correct, the user is authenticated.
 
 #### Limitations
 
-Currently the demo doesn't handle expired code or used code.
+Currently the demo doesn't handle expired codes or used codes.
 

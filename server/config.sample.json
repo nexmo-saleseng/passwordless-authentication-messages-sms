@@ -4,6 +4,10 @@
   "NEXMO_API_SECRET": "YOUR_NEXMO_API_SECRET",
   "BUCKET": "nexmo-demo-example",
   "REGION": "eu-west-2",
-  "NEXMO_SMS_FROM": "Nexmo",
+  "FROM": {
+    "GB": "GB number",
+    "US": "US number",
+    "FR": "FR number"
+  },
   "DYNAMODB_TABLE_INDEX": "recipientRandomDigitsIndex"
 }

@@ -6,6 +6,7 @@
   "dependencies": {
     "aws-sdk": "^2.465.0",
     "bluebird": "^3.5.5",
+    "libphonenumber-js": "^1.7.19",
     "nexmo": "^2.4.3-beta-1",
     "query-string": "^6.5.0"
   },
@@ -18,10 +19,10 @@
     "prettier": "^1.17.1"
   },
   "scripts": {
-    "test-create-auth-code": "sls invoke local --function create-auth-code --data '{\"body\":{\"recipient\":\"447749725766\"}}'",
+    "test-create-auth-code": "sls invoke local --function create-auth-code --path mocks/event_auth.json",
     "test-check-auth-code-fake": "sls invoke local --function check-auth-code --data '{\"body\":{\"authCode\":\"asd\"}}'",
     "test-check-auth-code": "sls invoke local --function check-auth-code --data '{\"body\":{\"authCode\":\"mJnX5VjfTF\"}}'",
-    "test-inbound-auth": "sls invoke local --function inbound-auth-code --data '{\"body\":\"msisdn=447749725766&text=9769\"}'"
+    "test-inbound-auth": "sls invoke local --function inbound-auth-code --data '{\"body\":\"msisdn=447749725766&text=9830\"}'"
   },
   "author": "",
   "license": "ISC"

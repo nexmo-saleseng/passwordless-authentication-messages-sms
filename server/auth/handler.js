@@ -1,11 +1,14 @@
 const AWS = require('aws-sdk');
 
 const Nexmo = require('nexmo');
+const { parsePhoneNumberFromString } = require('libphonenumber-js');
 const config = require('../config.json');
+const { getNumberFromCountryCode } = require('../util');
 
 AWS.config.setPromisesDependency(require('bluebird'));
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
+
 
 /**
  * Generate random path
@@ -27,13 +30,14 @@ function generateRandomDigits() {
   return Math.floor(1000 + Math.random() * 9000);
 }
 
-function putUrlMappingItem(authCode, recipient, randomDigits) {
+function putUrlMappingItem(authCode, recipient, randomDigits, country) {
   console.log('[putUrlMappingItem]', authCode, recipient);
   const item = {
     authCode,
     recipient,
     authenticated: false,
     randomDigits,
+    country,
   };
   const itemToSave = {
     TableName: config.DYNAMODB_TABLE,
@@ -90,8 +94,9 @@ module.exports.auth = async (event) => {
   const bucketName = `http://${config.BUCKET}.s3-website.${config.REGION}.amazonaws.com/login?auth=${uniqueCode}&code=${randomDigits}`;
   try {
     const requestBody = JSON.parse(event.body);
-    await putUrlMappingItem(uniqueCode, requestBody.recipient, randomDigits);
-    await sendSMS(requestBody.recipient, config.NEXMO_SMS_FROM, bucketName);
+    const { country } = parsePhoneNumberFromString(`+${requestBody.recipient}`);
+    await putUrlMappingItem(uniqueCode, requestBody.recipient, randomDigits, country);
+    await sendSMS(requestBody.recipient, getNumberFromCountryCode(country), bucketName);
     return {
       statusCode: 200,
       body: JSON.stringify({}),
