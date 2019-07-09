@@ -8,6 +8,7 @@
     "bluebird": "^3.5.5",
     "libphonenumber-js": "^1.7.19",
     "nexmo": "^2.4.3-beta-1",
+    "opentok": "^2.9.1",
     "query-string": "^6.5.0"
   },
   "devDependencies": {
@@ -16,14 +17,16 @@
     "eslint-plugin-import": "^2.17.2",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.13.0",
-    "prettier": "^1.17.1"
+    "prettier": "^1.17.1",
+    "serverless": "^1.46.1"
   },
   "scripts": {
     "test-create-auth-code": "sls invoke local --function create-auth-code --path mocks/event_auth.json",
     "test-check-auth-code-fake": "sls invoke local --function check-auth-code --data '{\"body\":{\"authCode\":\"asd\"}}'",
     "test-check-auth-code": "sls invoke local --function check-auth-code --data '{\"body\":{\"authCode\":\"mJnX5VjfTF\"}}'",
-    "test-inbound-auth": "sls invoke local --function inbound-auth-code --data '{\"body\":\"msisdn=447749725766&text=9830\"}'"
+    "test-inbound-auth": "sls invoke local --function inbound-auth-code --data '{\"body\":\"msisdn=447749725766&text=9830\"}'",
+    "deploy": "sls deploy --aws-profile enrico.portolan-nexmo"
   },
-  "author": "",
+  "author": "Enrico Portolan",
   "license": "ISC"
 }

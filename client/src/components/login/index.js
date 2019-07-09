@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {Link, withRouter} from 'react-router-dom';
+import Countdown from 'react-countdown-now';
 import queryString from 'query-string';
 import axios from 'axios';
 import ConfettiGenerator from "confetti-js";
@@ -8,17 +10,17 @@ class Login extends Component {
         super();
         this.state = { auth: '', code: '' };
         this._confettiEffect = null;
+        this.redirectTimeout = 5000;
     }
     componentDidMount () {
         const values = queryString.parse( this.props.location.search );
-        const intervalId = setInterval( this.checkAuth.bind( this ), 2000, 1 );
-        console.log( values.filter );
-        console.log( values );
+        const intervalId = setInterval( this.checkAuth.bind( this ), 1000, 1 );
         this.setState( {
             auth: values.auth,
             code: values.code,
             intervalId,
-            authenticated: false
+            authenticated: false,
+            opentok: null
         } )
         this._confettiEffect = new ConfettiGenerator( { target: 'auth-completed-confetti' } );
     }
@@ -29,22 +31,40 @@ class Login extends Component {
 
     checkAuth () {
         const { auth, intervalId } = this.state;
-        axios.post( 'https://3etfelg62j.execute-api.eu-west-2.amazonaws.com/dev/auth/check-auth', { authCode: auth } ).then( ( res ) => {
+        const {history} = this.props;
+        axios.post( 'https://auuubonz7g.execute-api.eu-west-2.amazonaws.com/dev/auth/check-auth-code', { authCode: auth } ).then( ( res ) => {
             console.log( '[checkAuth]', res );
             if ( res && res.data ) {
-                const { authenticated } = res.data.authResult;
+                const { authenticated, opentok } = res.data.authResult;
+                // todo use token to redirect
+                
                 this.setState( {
-                    authenticated
+                    authenticated,
+                    opentok: JSON.stringify(opentok)
                 } )
                 if ( authenticated ) {
                     this._confettiEffect.render();
                     clearInterval( intervalId )
+                    /* const {apiKey, sessionId, token} = opentok;
+                    const redirectVideoCallUrl = `/videocall?token=${token}&apiKey=${apiKey}&sessionId=${sessionId}`;
+                    setTimeout(() => {
+                        history.push(redirectVideoCallUrl)
+                    }, this.redirectTimeout) */
                 }
             }
         } );
     }
 
-    // todo devo fare un timer che chiede se il codice e' stato mandato
+    onCompleteCountdown() {
+        const {history} = this.props;
+        const {opentok} = this.state;
+        const {apiKey, sessionId, token} = JSON.parse(opentok);
+        history.push(`/videocall?token=${token}&apiKey=${apiKey}&sessionId=${sessionId}`);
+    }
+    
+    rendererCountDown({ seconds }) {
+      return <span>{seconds}</span>;
+    };
 
     render () {
         const { code, authenticated } = this.state;
@@ -55,22 +75,29 @@ class Login extends Component {
                     
                         <div className="Vlt-card" style={{minWidth: 360}}>
                             <div className="Vlt-card__header">
-                                <h2>Login page</h2>
+                                <h2>Authentication page</h2>
                             </div>
                             <h5 className="Vlt-center">
-                                To authenticate, please send an SMS with the following code:
-                        </h5>
+                                To authenticate, please send back the code below to the same number that sent you the SMS:
+                            </h5>
                             <div className="login-code-text letter-spacing">
                                 <span>{code}</span>
                             </div>
                             {
-                                authenticated ? <div className="Vlt-center"><h3 className="Vlt-green">Authenticated</h3></div>
+                                authenticated ? <div className="Vlt-center">
+                                    <h3 className="Vlt-green">Authenticated</h3>
+                                    <h4 className="Vlt-green"><span>You will now be redirected to the videocall in: </span>  
+                                    <Countdown date={Date.now() + this.redirectTimeout} onComplete={this.onCompleteCountdown.bind(this)} renderer={this.rendererCountDown}></Countdown>
+                                    </h4>
+                                </div>
                                     :
                                     <div className="Vlt-center">
                                         <div className="Vlt-spinner "></div>
                                     </div>
                             }
-
+                            <div className="Vlt-center">
+                            <button className="Vlt-btn Vlt-btn--tertiary"><Link to="/">Go Back to login page</Link></button>
+                            </div>
                         </div>
 
                     
@@ -81,4 +108,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default withRouter(Login);

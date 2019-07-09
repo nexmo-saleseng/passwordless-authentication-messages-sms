@@ -71,52 +71,26 @@ provider:
 
 functions:
   create-auth-code:
-    handler: auth/handler.auth
+    handler: functions/create-auth-code.handler
     events:
       - http:
-          path: auth/create
+          path: auth/create-auth-code
           method: post
           cors: true
   check-auth-code:
-    handler: check-auth/handler.checkauth
+    handler: functions/check-auth-code.handler
     events:
       - http:
-          path: auth/check-auth
+          path: auth/check-auth-code
           method: post
           cors: true
-  inbound-auth-code:
-    handler: inbound-auth/handler.inbound
+  messages-webhook-inbound:
+    handler: functions/messages-webhook-inbound.handler
     events:
       - http:
-          path: auth/inbound
+          path: webhook/messages-inbound
           method: post
           cors: true
-#      - websocket: $connect
-#      - s3: ${env:BUCKET}
-#      - schedule: rate(10 minutes)
-#      - sns: greeter-topic
-#      - stream: arn:aws:dynamodb:region:XXXXXX:table/foo/stream/1970-01-01T00:00:00.000
-#      - alexaSkill: amzn1.ask.skill.xx-xx-xx-xx
-#      - alexaSmartHome: amzn1.ask.skill.xx-xx-xx-xx
-#      - iot:
-#          sql: "SELECT * FROM 'some_topic'"
-#      - cloudwatchEvent:
-#          event:
-#            source:
-#              - "aws.ec2"
-#            detail-type:
-#              - "EC2 Instance State-change Notification"
-#            detail:
-#              state:
-#                - pending
-#      - cloudwatchLog: '/aws/lambda/hello'
-#      - cognitoUserPool:
-#          pool: MyUserPool
-#          trigger: PreSignUp
-
-#    Define function environment variables here
-#    environment:
-#      variable2: value2
 
 resources:
   Resources:
@@ -149,13 +123,14 @@ resources:
               ReadCapacityUnits: 1
               WriteCapacityUnits: 1
         TableName: ${self:provider.environment.DYNAMODB_TABLE}
-    ServerlessRedirectS3Bucket:
+    PasswordLessDemoBucket:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: ${file(config.json):BUCKET}
         AccessControl: PublicRead
         WebsiteConfiguration:
           IndexDocument: index.html
+          ErrorDocument: index.html
     ServerlessRedirectS3BucketPolicy:
       Type: AWS::S3::BucketPolicy
       Properties:

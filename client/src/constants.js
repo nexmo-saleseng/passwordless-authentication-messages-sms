@@ -1,0 +1,1 @@
+export const cloudfrontDistribution = 'https://d3dqye79o8tcoo.cloudfront.net';

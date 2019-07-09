@@ -9,5 +9,7 @@
     "US": "US number",
     "FR": "FR number"
   },
-  "DYNAMODB_TABLE_INDEX": "recipientRandomDigitsIndex"
+  "DYNAMODB_TABLE_INDEX": "recipientRandomDigitsIndex",
+  "TOKBOX_API_KEY": "TOKBOX_API_KEY",
+  "TOKBOX_API_SECRET": "TOKBOX_API_SECRET"
 }

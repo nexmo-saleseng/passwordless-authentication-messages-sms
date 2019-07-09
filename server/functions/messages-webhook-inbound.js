@@ -88,9 +88,10 @@ async function authenticateCode({ recipient, randomDigits }) {
   }
 }
 /**
+ * Register inbound webhook
  * This function given an auth code, it checks if it has been authored.
  */
-module.exports.inbound = async (event) => {
+module.exports.handler = async (event) => {
   const { body } = event;
   console.log('[inbound]', event);
   // msisdn=447749725766&to=447418397993&messageId=1700000245ACDE62&text=Ciao&type=text&keyword=CIAO&message-timestamp=2019-05-30+15%3A36%3A09
