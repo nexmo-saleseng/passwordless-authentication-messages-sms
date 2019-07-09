@@ -20,7 +20,7 @@ Below an image explaining the user flow:
 
 #### Use Website
 
-The demo is hosted here: [website](http://nexmo-demo-passwordless-auth.s3-website.eu-west-2.amazonaws.com)
+The demo is hosted here: [website](https://d3dqye79o8tcoo.cloudfront.net/index.html)
 
 ## Implementation
 
