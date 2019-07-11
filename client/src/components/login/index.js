@@ -45,11 +45,6 @@ class Login extends Component {
                 if ( authenticated ) {
                     this._confettiEffect.render();
                     clearInterval( intervalId )
-                    /* const {apiKey, sessionId, token} = opentok;
-                    const redirectVideoCallUrl = `/videocall?token=${token}&apiKey=${apiKey}&sessionId=${sessionId}`;
-                    setTimeout(() => {
-                        history.push(redirectVideoCallUrl)
-                    }, this.redirectTimeout) */
                 }
             }
         } );
@@ -74,11 +69,11 @@ class Login extends Component {
                 <div className="login-card Vlt-margin--top4">
                     
                         <div className="Vlt-card" style={{minWidth: 360}}>
-                            <div className="Vlt-card__header">
-                                <h2>Authentication page</h2>
+                            <div className="Vlt-card__header Vlt-center">
+                                <h2>Join videocall with your doctor</h2>
                             </div>
                             <h5 className="Vlt-center">
-                                To authenticate, please send back the code below to the same number that sent you the SMS:
+                                To obtain the link, please send back the code below to the same number that sent you the SMS:
                             </h5>
                             <div className="login-code-text letter-spacing">
                                 <span>{code}</span>

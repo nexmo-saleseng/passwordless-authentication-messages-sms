@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Header from '../header'
+import treatmentIcon from './treatment-64.png'
 
 import {cloudfrontDistribution} from '../../constants';
 
@@ -30,18 +32,26 @@ class Home extends Component {
         const { recipient, smsSent, apiKey, sessionId, token } = this.state;
         const redirectVideoCallUrl = `${cloudfrontDistribution}/videocall?token=${token}&apiKey=${apiKey}&sessionId=${sessionId}`;
         return (
-            <div className="Vlt-grid Vlt-margin--top4" style={{ justifyContent: 'center' }}>
+            <div>
+                <Header></Header>
+                <div className="Vlt-grid Vlt-margin--top4" style={{ justifyContent: 'center' }}>
                 <div className="Vlt-col Vlt-col--1of2">
                     <div className="Vlt-card">
                         <div className="Vlt-card__header">
-                            <h2>Send appointment reminder to the user</h2>
+                            <h2>Send appointment reminder to your patient</h2>
                         </div>
                         <div className="Vlt-form__element">
-                            <label className="Vlt-label" htmlFor="phone-number-input">Insert user's phone number. </label>
-                            <div className="Vlt-input">
-                                <input value={recipient} style={{ width: 250 }} type="number" id="phone-number-input" onChange={this.handleChange} />
+                            <div>
+                                <img src={treatmentIcon} alt="treatment-patient"></img>
+                                <h4>Patient name</h4>
                             </div>
-                            <button className="Vlt-btn Vlt-btn--secondary Vlt-btn--app" onClick={this.sendSMS}>Send</button>
+                            <div style={{margin: "15px 0"}}>
+                                <label className="Vlt-label" htmlFor="phone-number-input">Insert user's phone number. </label>
+                                <div className="Vlt-input">
+                                    <input value={recipient} style={{ width: 250,margin: 0 }} type="number" id="phone-number-input" onChange={this.handleChange} />
+                                </div>
+                            </div>
+                            <button className="Vlt-btn Vlt-btn--primary Vlt-btn--app" onClick={this.sendSMS}>Send</button>
                         </div>
                         {
                             smsSent && <><div className="Vlt-callout Vlt-callout--good">
@@ -51,7 +61,7 @@ class Home extends Component {
                                 </div>
                             </div>
                             <div className="Vlt-center">
-                                <a style={{margin: 0}} className="Vlt-btn Vlt-btn--primary" target="_blank" href={redirectVideoCallUrl} rel="noopener noreferrer">Join videocall</a>
+                                <a style={{margin: 0}} className="Vlt-btn Vlt-btn--secondary" target="_blank" href={redirectVideoCallUrl} rel="noopener noreferrer">Join videocall</a>
                             </div>
                             </>
                         }
@@ -59,6 +69,8 @@ class Home extends Component {
                     </div>
                 </div>
             </div>
+            </div>
+            
         );
     }
 }
