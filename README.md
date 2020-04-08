@@ -14,7 +14,7 @@ The user flow of this demo is the following:
 
 Below an image explaining the user flow:
 
-![User flow](./assets/images/passwordlessauth.png)
+![User flow](./client/public/assets/images/passwordlessauth.png)
 
 ## Usage
 
@@ -28,7 +28,7 @@ The project is composed by AWS Serverless components and Nexmo Messages API.
 
 Firstly, the user types his mobile number in the Home webpage. The webpage sends a POST request to an API Gateway backed by a Lambda function. The Lambda function is responsible for saving the item in DynamoDB and sending the SMS using Nexmo Messages API:
 
-![User flow 2](./assets/images/passwordlessauth-Page-3.png)
+![User flow 2](./client/public/assets/images/passwordlessauth-Page-3.png)
 
 The item saved in Dynamo is composed by the authCode used in the login page, a random 4 digits code and the recipient number.
 
@@ -37,7 +37,7 @@ The user will receive an SMS with the login page personalized with the authCode.
 Using the Nexmo Inbound webhook for SMS, you can register an endpoint to invoke a function. In this case, a Lambda function is called. The function will check the recipient and the text.
 If the credentials are correct, the user is authenticated.
 
-![User flow 3](./assets/images/passwordlessauth-Page-2.png)
+![User flow 3](./client/public/assets/images/passwordlessauth-Page-2.png)
 
 #### Limitations
 
