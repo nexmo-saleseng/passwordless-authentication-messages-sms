@@ -16,11 +16,22 @@ Below an image explaining the user flow:
 
 ![User flow](./client/public/assets/images/passwordlessauth.png)
 
-## Usage
+## Requirements
 
-#### Use Website
+-  [Tokbox Account](https://tokbox.com/account/user/signup?icid=tryitfree_comm-apis_tokboxfreetrialsignup_btn)
+-  [Nexmo Account](https://dashboard.nexmo.com/sign-up?icid=tryitfree_comm-apis_nexmodashbdfreetrialsignup_btn)
+-  Serverless Framework
 
-The demo is hosted here: [website](https://d3dqye79o8tcoo.cloudfront.net/index.html)
+You can install the [Serverless](https://serverless.com/framework/docs/getting-started#installing-via-npm) framework directly from npm
+
+```
+# Install the serverless cli
+npm install -g serverless
+
+# Or, update the serverless cli from a previous version
+npm update -g serverless
+
+```
 
 ## Implementation
 
