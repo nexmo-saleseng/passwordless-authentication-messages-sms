@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "aws-sdk": "^2.465.0",
+    "aws-sdk": "^2.814.0",
     "bluebird": "^3.5.5",
     "libphonenumber-js": "^1.7.19",
     "nexmo": "^2.4.3-beta-1",
