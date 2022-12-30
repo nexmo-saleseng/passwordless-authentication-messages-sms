@@ -18,7 +18,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.13.0",
     "prettier": "^1.17.1",
-    "serverless": "^1.46.1"
+    "serverless": "^1.83.3"
   },
   "scripts": {
     "test-create-auth-code": "sls invoke local --function create-auth-code --path mocks/event_auth.json",
